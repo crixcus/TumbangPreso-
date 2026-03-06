@@ -93,6 +93,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5529423483195945755}
+  - component: {fileID: 8737452420896191185}
+  - component: {fileID: 8441028461929329720}
   m_Layer: 0
   m_Name: Aiming
   m_TagString: Untagged
@@ -116,6 +118,37 @@ Transform:
   - {fileID: 1621480025224617629}
   m_Father: {fileID: 938678521888735400}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8737452420896191185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341937774449037236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28247f10c9581ae439ad744808d2b769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAngle: 45
+  rockSpeed: 2
+--- !u!114 &8441028461929329720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341937774449037236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f47602a818f334f8d0760245791a63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+  projectileSpeed: 12
+  fireCooldown: 0.2
+  useFirePointUpDirection: 0
 --- !u!1 &4349395776790226078
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +179,7 @@ Transform:
   m_GameObject: {fileID: 4349395776790226078}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -3.84, z: 0}
+  m_LocalPosition: {x: -0, y: -4, z: 0}
   m_LocalScale: {x: 0.32825, y: 0.32825, z: 0.32825}
   m_ConstrainProportionsScale: 0
   m_Children:
