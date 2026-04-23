@@ -9,11 +9,10 @@ public class MovingAim : MonoBehaviour
 
     void Update()
     {
-        
         float sineValue = Mathf.Sin(Time.time * rockSpeed);
 
         float zRotation = sineValue * maxAngle;
 
-        transform.rotation = Quaternion.Euler(0f, 0f, zRotation);
+        transform.rotation = Quaternion.Euler(0f, 0f, zRotation+ (-90));
     }
 }

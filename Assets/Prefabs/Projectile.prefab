@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4989727495237582072}
   - component: {fileID: 5207757688906734842}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,9 +95,10 @@ GameObject:
   - component: {fileID: 1819295060555792726}
   - component: {fileID: -1674623652016790610}
   - component: {fileID: -4673451564439573311}
-  m_Layer: 0
+  - component: {fileID: 6815178492115544821}
+  m_Layer: 8
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Slipper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,7 +113,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4989727495237582072}
@@ -130,7 +131,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -140,7 +141,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -155,7 +156,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a8ad3f856a1c44c4cbc541b64f5d610b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -179,6 +180,24 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: -0.00305143, y: 0}
+  m_Size: {x: 0.20095974, y: 0.37750816}
   m_Direction: 0
+--- !u!114 &6815178492115544821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7780729571001695905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bff31eaa5ba96478da04e05719f596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 200
+  knockbackForce: 76
+  torqueMultiplier: 36
+  dragAfterHit: 3
+  maxBounces: 2
+  minVelocityThreshold: 0.1

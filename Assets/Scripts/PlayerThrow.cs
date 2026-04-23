@@ -10,20 +10,25 @@ public class PlayerThrow : MonoBehaviour
 
     [Header("Firing")]
     [SerializeField] private float projectileSpeed = 12f;
-    [SerializeField] private float fireCooldown = 0.2f;
     [SerializeField] private bool useFirePointUpDirection = false;
 
-    private float _nextFireTime;
+    private bool _hasAmmo = true;
+    private GameObject _activeProjectile;
+    private PlayerAutoRun _autoRun;
+
+
+    private void Awake()
+    {
+        _autoRun = GetComponent<PlayerAutoRun>();
+    }
+
 
     private void Update()
     {
-        if (!IsTouchFireRequested() || Time.time < _nextFireTime)
-        {
+        if (!IsTouchFireRequested() || !_hasAmmo)
             return;
-        }
 
         FireProjectile();
-        _nextFireTime = Time.time + fireCooldown;
     }
 
     private static bool IsTouchFireRequested()
@@ -35,7 +40,6 @@ public class PlayerThrow : MonoBehaviour
                 return true;
             }
         }
-
 #if UNITY_EDITOR
         return Input.GetMouseButtonDown(0);
 #else
@@ -45,22 +49,55 @@ public class PlayerThrow : MonoBehaviour
 
     private void FireProjectile()
     {
-        if (projectilePrefab == null || firePoint == null)
+        Debug.Log($"FireProjectile called. _hasAmmo = {_hasAmmo}");
+        if (!_hasAmmo) return;
+
+        if (!_hasAmmo) return;
+        if (projectilePrefab == null || firePoint == null) return;
+
+        _activeProjectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+
+        Rigidbody2D rb = _activeProjectile.GetComponent<Rigidbody2D>();
+        if (rb == null) return;
+
+        Collider2D projectileCol = _activeProjectile.GetComponent<Collider2D>();
+        Collider2D[] playerColliders = GetComponents<Collider2D>();
+        foreach (Collider2D col in playerColliders)
         {
-            Debug.LogWarning("ProjectileShooter is missing projectilePrefab or firePoint reference.", this);
-            return;
+            Physics2D.IgnoreCollision(projectileCol, col);
         }
 
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-
-        if (rb == null)
-        {
-            Debug.LogWarning("Spawned projectile has no Rigidbody2D; speed was not applied.", projectile);
-            return;
-        }
+        ProjectileReturnNotifier notifier = _activeProjectile.AddComponent<ProjectileReturnNotifier>();
+        notifier.Initialize(this);
 
         Vector2 direction = useFirePointUpDirection ? firePoint.up : firePoint.right;
         rb.velocity = direction * projectileSpeed;
+
+        _hasAmmo = false;
+        Debug.Log($"Projectile fired and stored: {_activeProjectile.name}");
+
+        _hasAmmo = false;
+        Debug.Log("Ammo consumed, _hasAmmo = anyong tubig na bumabagsak");
     }
+
+    public void OnProjectileStopped(Transform projectile)
+    {
+        Debug.Log("OnProjectileStopped received!");
+        if (_autoRun != null)
+            _autoRun.StartAutoRun(_activeProjectile.transform); 
+        else
+            Debug.LogWarning("_autoRun is null!");
+    }
+
+    public void OnAmmoRetrieved()
+    {
+        Debug.Log("OnAmmoRetrieved called!");
+        _hasAmmo = true;
+        _activeProjectile = null;
+
+        if (_autoRun != null)
+            _autoRun.OnProjectileRetrieved();
+    }
+
+    public bool HasAmmo => _hasAmmo;
 }

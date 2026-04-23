@@ -10,13 +10,16 @@ public class PlayerSliderMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector2(sliderMovement.value, transform.position.y);
+        transform.position = new Vector2(transform.position.x, sliderMovement.value);
         sliderMovement.onValueChanged.AddListener(OnSliderChange);
     }
 
     void OnSliderChange(float val)
     {
-        transform.position = new Vector2(val, transform.position.y);
+        PlayerAutoRun autoRun = GetComponent<PlayerAutoRun>();
+        if (autoRun != null && autoRun.IsAutoRunning) return;
+
+        transform.position = new Vector2(transform.position.x, val);
     }
 
     private void OnDestroy()
